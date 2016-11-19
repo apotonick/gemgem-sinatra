@@ -18,7 +18,9 @@ class Post::Create < Trailblazer::Operation
 
       required(:title).value(:filled?)
       required(:url_slug).value(format?: /^[\w-]+$/)
-      required(:url_slug).filled(:unique?)
+      #  the unique? method fails fails with: 
+      #  NameError - undefined local variable or method `form' for #<#<Class...
+      # required(:url_slug).filled(:unique?)
     end
   end
 
