@@ -3,6 +3,7 @@ require_relative "config/init"
 
 get "/posts/new" do
   op = Post::Create.present({})
+
   Post::Cell::New.(op, url: "/posts", layout: Gemgem::Cell::Layout).()
 end
 

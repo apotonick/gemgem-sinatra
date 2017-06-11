@@ -1,8 +1,9 @@
-a href="/posts/#{model.id}/edit"
-  | Edit
+.page-header
+  h1
+    a href="/posts/#{model.id}/edit" class="btn btn-info" style="margin-right:10px;"
+      | Edit
+    = title
 
-h1
-  = title
 
 .content
   = content

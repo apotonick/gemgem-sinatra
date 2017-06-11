@@ -14,6 +14,7 @@ The following gems are used in this project.
 | Dry-validation | Validation |
 | Cells | Presentation |
 | Slim | Presentation |
+| Formular| Form Rendering |
 
 ## Run
 

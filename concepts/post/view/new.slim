@@ -1,14 +1,61 @@
-h1 New Post!
+.row
+  .col-sm-6.col-sm-offset-3
+    .page-header.text-center
+      h1 New Post!
 
-form action="#{url}" method="post"
-  .row
-    input type="text" name="title" value=model.contract.title placeholder="Title"
-  .row
-    input type="text" name="url_slug" value=model.contract.url_slug disabled=model.contract.options_for(:url_slug)[:readonly]  placeholder="URL slug"
-  .row
-    textarea name="content"  placeholder="And your story..." rows="9"
-      =model.contract.content
-  .row
-    input type="submit" class="large button expand"
+    = vertical_form(model.contract, url) do |f|
+      .row
+        .col-sm-6
+          = f.input_group :title, label: "Title" do |input|
+            =input.group_addon('<input type="checkbox" value="1"/>')
+            =input.control
+        .col-sm-6
+          = f.input :url_slug, label: "URL Slug"
 
-= model.contract.errors.messages.inspect
+      = f.input_group :url_slug, label: "URL", left_addon: 'http://', right_addon: '.com'
+
+      = f.select :select_roles, label: "Roles", collection: roles_array, prompt: 'Choose a role'
+
+      = f.inline_radio :select_roles, label: "Inline radios", collection: [[1, "Yes"], [2, "No"], [3, "I really don't know"]]
+
+      = f.inline_checkbox :select_roles, label: "Inline checkboxes", collection: options_array
+
+      hr
+      h4 Checkboxes in columns!
+      .row
+        .col-sm-4
+          = f.checkbox :select_roles, label: "Column 1", collection: options_array
+        .col-sm-4
+          = f.checkbox :select_roles, label: "Column 2", collection: options_array
+        .col-sm-4
+          = f.checkbox :select_roles, label: "Column 3", collection: options_array
+      hr
+
+      = f.textarea :content, placeholder: "And your story...", rows: 9
+      = f.checkbox :is_public, label: "Public?", value: "1"
+
+      = f.submit content: "Submit!", class: ['btn-lg']
+
+    .page-header.text-center
+      h1 Inline Form
+
+    = inline_form(model.contract, url) do |f|
+      = f.input :title
+      = f.input :url_slug, label: 'url slug', placeholder: "URL slug", label_options: { class: ["sr-only"] }
+      =f.submit(content: "Submit!")
+
+.page-header.text-center
+  h1 Horizontal Form
+
+= horizontal_form(model.contract, url) do |f|
+  = f.input_group :title, label: "Title" do |input|
+    =input.control
+    =input.group_btn("<a class='btn btn-default' href='#'>Suprise Me</a>")
+
+  = f.input :url_slug, label: 'URL'
+
+  = f.textarea :content, placeholder: "And your story...", rows: 9, label: 'Content'
+
+  = f.select :select_roles, collection: roles_array, label: 'Role', prompt: 'Choose a role'
+
+  = f.submit content: "Submit!", class: ['btn-lg']
