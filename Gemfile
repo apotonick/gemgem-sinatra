@@ -8,8 +8,8 @@ gem "trailblazer", "1.1.0"  # operation
 gem "cells"                     # presentation
 gem "cells-slim", ">= 0.0.4"
 gem "trailblazer-cells"
-gem "reform",      "2.2.0"  # validation
-gem "dry-validation", "0.7.4"  # validation
+gem "reform"#,      "2.2.0"  # validation
+gem "dry-validation"#, "0.7.4"  # validation
 
 gem "rerun"
 gem "benchmark-ips"

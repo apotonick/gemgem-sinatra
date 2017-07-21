@@ -3,22 +3,22 @@
     .page-header.text-center
       h1 New Post!
 
+#:vertical
     = vertical_form(model.contract, url) do |f|
       .row
         .col-sm-6
-          = f.input_group :title, label: "Title" do |input|
-            =input.group_addon('<input type="checkbox" value="1"/>')
-            =input.control
+          = f.input :title, label: "Title"
         .col-sm-6
-          = f.input :url_slug, label: "URL Slug"
-
+#:vertical-inputgroup
+          = f.input_group :title, label: "URL Slug" do |input|
+            = input.group_addon('<input type="checkbox" value="1"/>')
+            = input.control
+#:vertical-inputgroup end
       = f.input_group :url_slug, label: "URL", left_addon: 'http://', right_addon: '.com'
-
       = f.select :select_roles, label: "Roles", collection: roles_array, prompt: 'Choose a role'
-
       = f.inline_radio :select_roles, label: "Inline radios", collection: [[1, "Yes"], [2, "No"], [3, "I really don't know"]]
-
       = f.inline_checkbox :select_roles, label: "Inline checkboxes", collection: options_array
+#:vertical end
 
       hr
       h4 Checkboxes in columns!
