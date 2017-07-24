@@ -1,5 +1,7 @@
-PATH
-  remote: ../formular
+GIT
+  remote: https://github.com/trailblazer/formular.git
+  revision: a3fcfad1360642734ecc2e0250e618d91e879133
+  branch: master
   specs:
     formular (0.2.1)
       declarative (~> 0.0.4)
@@ -100,9 +102,9 @@ DEPENDENCIES
   benchmark-ips
   cells
   cells-slim (>= 0.0.4)
-  dry-validation (= 0.7.4)
+  dry-validation
   formular!
-  reform (= 2.2.0)
+  reform
   rerun
   sinatra
   sinatra-sequel
@@ -111,4 +113,4 @@ DEPENDENCIES
   trailblazer-cells
 
 BUNDLED WITH
-   1.12.5
+   1.15.2
