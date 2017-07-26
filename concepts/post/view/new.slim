@@ -30,7 +30,7 @@
       hr
 
       = f.textarea :content, placeholder: "And your story...", rows: 9
-      = f.checkbox :is_public, label: "Public?", value: "1"
+      = f.checkbox :is_public, label: "Public?"
 
       = f.submit content: "Submit!", class: ['btn-lg']
 
@@ -63,13 +63,37 @@
 .row
   .col-sm-4.col-sm-offset-4
     /#:input_options
-    = form(model.contract, url, enctype: 'multipart/form-data', builder: :bootstrap3) do |f|
+    = form(input_options, url, enctype: 'multipart/form-data', builder: :bootstrap3) do |f|
       = f.input :id, type: 'hidden', value: "some_id"
       = f.input :email, type: 'email', label: "Email"
       = f.input :password, type: 'password', label: "Password"
       = f.input :image, type: 'file', label: "Image"
       = f.input :background_color, type: 'color', label: "Background Colour", hint: "Select the background colour for your image!"
-      = f.input :number, type: 'number', label:"Number"
+      = f.input :number, type: 'number', label:"Number", disabled: true, value: '5'
       = f.submit content: "Submit!", class: ['btn-lg']
       /#:input_options end
+
+
+.page-header.text-center
+  h1 Playing with Select, Check and Radio box
+.row
+  .col-sm-4.col-sm-offset-4
+    /#:select
+    = form(select_box, url, builder: :bootstrap3) do |f|
+      = f.select :select_basic_roles, label: "Basic Roles", collection: roles_array, prompt: 'Choose a role'
+      = f.select :select_roles, label: "Basic Roles with value", collection: roles_array, value: "Admin"
+      = f.select :select_complex_roles, label: "Complex Roles", collection: complex_role, value: "i"
+      = f.select :select_multi_complex_roles, label: "Multiple Complex Roles", collection: complex_role, multiple: 'multiple'
+      /#:select end
+      /#:check_radio_box
+      .col-sm-6
+        = f.checkbox :is_public, label: "Basic Checkbox", value: true
+        = f.checkbox :is_not_public, label: "Basic Checked Checkbox", checked: 'checked'
+        = f.checkbox :check_roles, label: "Multiple Checkbox", multiple: 'multiple', collection: roles_array
+      .col-sm-6
+        = f.radio :is_public, label: "Basic Radio", value: true
+        = f.radio :is_not_public, label: "Basic Checked Radio", checked: 'checked'
+        = f.radio :check_roles, label: "Multiple Radio", multiple: 'multiple', collection: roles_array
+      = f.submit content: "Submit!", class: ['btn-lg']
+      /#:check_radio_box end
 
