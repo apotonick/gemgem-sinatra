@@ -1,11 +1,18 @@
 require "sinatra"
 require_relative "config/init"
+require_relative 'concepts/post/contract/input_options'
+require_relative 'concepts/post/contract/select_box'
 
 get "/posts/new" do
   # op = Post::Create.present({})
 
   model = OpenStruct.new
-  Post::Cell::New.(model, url: "/posts", layout: Gemgem::Cell::Layout).()
+  Post::Cell::New.(
+                    model,
+                    url: "/posts",
+                    layout: Gemgem::Cell::Layout,
+                    input_options: Post::Contract::InputOptions.new(model),
+                    select_box: Post::Contract::SelectBox.new(model)).()
 end
 
 post "/posts" do
