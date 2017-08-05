@@ -32,8 +32,21 @@ module Post::Cell
       [["Admin", 1], ["Owner", 2], ["Maintainer", 3]]
     end
 
+    def complex_role
+      [['Team', [['England', 'e'], %w(Italy i),['Germany', 'g']]],['Roles', [['Fullback', 0], ['Hooker', 1], ['Wing', 2]]]]
+    end
+
     def url
       options[:url] || raise("no action URL!")
     end
+
+    def input_options
+      options[:input_options]
+    end
+
+    def select_box
+      options[:select_box]
+    end
+
   end
 end

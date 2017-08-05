@@ -3,22 +3,20 @@
     .page-header.text-center
       h1 New Post!
 
-#:vertical
-    = vertical_form(model.contract, url) do |f|
-      .row
-        .col-sm-6
-          = f.input :title, label: "Title"
-        .col-sm-6
-#:vertical-inputgroup
-          = f.input_group :title, label: "URL Slug" do |input|
-            = input.group_addon('<input type="checkbox" value="1"/>')
-            = input.control
-#:vertical-inputgroup end
+    /#:vertical
+    = form(model.contract, url, builder: :bootstrap3) do |f|
+      = f.row
+        = f.input :title, label: "Title", inline_col_class: ['col-md-6']
+        /#:vertical-inputgroup
+        = f.input_group :title, label: "URL Slug", inline_col_class: ['col-md-6'] do |input|
+          = input.group_addon('<input type="checkbox" value="1"/>')
+          = input.control
+        /#:vertical-inputgroup end
       = f.input_group :url_slug, label: "URL", left_addon: 'http://', right_addon: '.com'
       = f.select :select_roles, label: "Roles", collection: roles_array, prompt: 'Choose a role'
       = f.inline_radio :select_roles, label: "Inline radios", collection: [[1, "Yes"], [2, "No"], [3, "I really don't know"]]
       = f.inline_checkbox :select_roles, label: "Inline checkboxes", collection: options_array
-#:vertical end
+      /#:vertical end
 
       hr
       h4 Checkboxes in columns!
@@ -32,30 +30,70 @@
       hr
 
       = f.textarea :content, placeholder: "And your story...", rows: 9
-      = f.checkbox :is_public, label: "Public?", value: "1"
+      = f.checkbox :is_public, label: "Public?"
 
       = f.submit content: "Submit!", class: ['btn-lg']
 
     .page-header.text-center
       h1 Inline Form
 
-    = inline_form(model.contract, url) do |f|
+    /#:inline_form
+    = form(model.contract, url, builder: :bootstrap3_inline) do |f|
       = f.input :title
       = f.input :url_slug, label: 'url slug', placeholder: "URL slug", label_options: { class: ["sr-only"] }
       =f.submit(content: "Submit!")
+    /#:inline_form end
+.row
+  .col-sm-6.col-sm-offset-3
+    .page-header.text-center
+      h1 Horizontal Form
+    /#:horizontal_form
+    = form(model.contract, url, builder: :bootstrap3_horizontal) do |f|
+      = f.input_group :title, label: "Title" do |input|
+        =input.control
+        =input.group_btn("<a class='btn btn-default' href='/'>Suprise Me</a>")
+      = f.input :url_slug, label: 'URL'
+      = f.textarea :content, placeholder: "And your story...", rows: 9, label: 'Content'
+      = f.select :select_roles, collection: roles_array, label: 'Role', prompt: 'Choose a role'
+      = f.submit content: "Submit!", class: ['btn-lg']
+    /#:horizontal_form end
 
 .page-header.text-center
-  h1 Horizontal Form
+  h1 Input Options
+.row
+  .col-sm-4.col-sm-offset-4
+    /#:input_options
+    = form(input_options, url, enctype: 'multipart/form-data', builder: :bootstrap3) do |f|
+      = f.input :id, type: 'hidden', value: "some_id"
+      = f.input :email, type: 'email', label: "Email"
+      = f.input :password, type: 'password', label: "Password"
+      = f.input :image, type: 'file', label: "Image"
+      = f.input :background_color, type: 'color', label: "Background Colour", hint: "Select the background colour for your image!"
+      = f.input :number, type: 'number', label:"Number", disabled: true, value: '5'
+      = f.submit content: "Submit!", class: ['btn-lg']
+      /#:input_options end
 
-= horizontal_form(model.contract, url) do |f|
-  = f.input_group :title, label: "Title" do |input|
-    =input.control
-    =input.group_btn("<a class='btn btn-default' href='#'>Suprise Me</a>")
 
-  = f.input :url_slug, label: 'URL'
+.page-header.text-center
+  h1 Playing with Select, Check and Radio box
+.row
+  .col-sm-4.col-sm-offset-4
+    /#:select
+    = form(select_box, url, builder: :bootstrap3) do |f|
+      = f.select :select_basic_roles, label: "Basic Roles", collection: roles_array, prompt: 'Choose a role'
+      = f.select :select_roles, label: "Basic Roles with value", collection: roles_array, value: "Admin"
+      = f.select :select_complex_roles, label: "Complex Roles", collection: complex_role, value: "i"
+      = f.select :select_multi_complex_roles, label: "Multiple Complex Roles", collection: complex_role, multiple: 'multiple'
+      /#:select end
+      /#:check_radio_box
+      .col-sm-6
+        = f.checkbox :is_public, label: "Basic Checkbox", value: true
+        = f.checkbox :is_not_public, label: "Basic Checked Checkbox", checked: 'checked'
+        = f.checkbox :check_roles, label: "Multiple Checkbox", multiple: 'multiple', collection: roles_array
+      .col-sm-6
+        = f.radio :is_public, label: "Basic Radio", value: true
+        = f.radio :is_not_public, label: "Basic Checked Radio", checked: 'checked'
+        = f.radio :check_roles, label: "Multiple Radio", multiple: 'multiple', collection: roles_array
+      = f.submit content: "Submit!", class: ['btn-lg']
+      /#:check_radio_box end
 
-  = f.textarea :content, placeholder: "And your story...", rows: 9, label: 'Content'
-
-  = f.select :select_roles, collection: roles_array, label: 'Role', prompt: 'Choose a role'
-
-  = f.submit content: "Submit!", class: ['btn-lg']
